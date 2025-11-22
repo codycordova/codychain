@@ -2,7 +2,7 @@
 Pydantic models for blockchain API requests and responses.
 """
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class Transaction(BaseModel):
@@ -10,6 +10,9 @@ class Transaction(BaseModel):
     sender: str
     receiver: str
     amount: float
+    signature: Optional[str] = None  # Ed25519 signature in hex format
+    zk_proof: Optional[dict] = None  # Optional zero-knowledge proof
+    timestamp: Optional[str] = None  # Transaction timestamp for signature verification
 
 
 class TransactionRequest(BaseModel):
@@ -17,6 +20,9 @@ class TransactionRequest(BaseModel):
     sender: str
     receiver: str
     amount: float
+    signature: Optional[str] = None  # Ed25519 signature in hex format
+    zk_proof: Optional[dict] = None  # Optional zero-knowledge proof
+    timestamp: Optional[str] = None  # Transaction timestamp for signature verification
 
 
 class BalanceResponse(BaseModel):

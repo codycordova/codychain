@@ -1,0 +1,312 @@
+{
+  "chain": [
+    {
+      "index": 0,
+      "timestamp": "2025-11-21T20:55:46.014001",
+      "transactions": [],
+      "previous_hash": "0",
+      "nonce": 125772,
+      "hash": "0000e8efc2aac33c4a19c39c950d1941dbad5b591bde276fc7603c067dbd5e92"
+    },
+    {
+      "index": 1,
+      "timestamp": "2025-11-21T21:06:43.722365",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "GBXE",
+          "amount": 1.4,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000e8efc2aac33c4a19c39c950d1941dbad5b591bde276fc7603c067dbd5e92",
+      "nonce": 39284,
+      "hash": "0000656e0650918fb490ba1251e0ab7eb60b8c3f5d10e68022b339138e5852c1"
+    },
+    {
+      "index": 2,
+      "timestamp": "2025-11-21T21:06:48.968322",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "GBXE",
+          "amount": 0.3,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000656e0650918fb490ba1251e0ab7eb60b8c3f5d10e68022b339138e5852c1",
+      "nonce": 4600,
+      "hash": "00006ec8cdad4936fa5c424db547a49f9f6a0f8d704814960ab1206072039a5a"
+    },
+    {
+      "index": 3,
+      "timestamp": "2025-11-21T21:06:51.753084",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "GBXE",
+          "amount": 0.2,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "00006ec8cdad4936fa5c424db547a49f9f6a0f8d704814960ab1206072039a5a",
+      "nonce": 277199,
+      "hash": "0000da4537ace3a1752b5a9a2dced964d479e121f9f97db6b2c91cc11ac8cbaa"
+    },
+    {
+      "index": 4,
+      "timestamp": "2025-11-21T21:06:55.289229",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "GBXE",
+          "amount": 0.6,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000da4537ace3a1752b5a9a2dced964d479e121f9f97db6b2c91cc11ac8cbaa",
+      "nonce": 5981,
+      "hash": "000075e750b32686b1dbd53fc8622eb4f73a50da80f31662c63f0d63402d2e0f"
+    },
+    {
+      "index": 5,
+      "timestamp": "2025-11-21T21:17:14.675110",
+      "transactions": [
+        {
+          "sender": "GBXE",
+          "receiver": "X0EO",
+          "amount": 1.0,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": "2025-11-21T21:10:02.188369"
+        },
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.7,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "000075e750b32686b1dbd53fc8622eb4f73a50da80f31662c63f0d63402d2e0f",
+      "nonce": 55420,
+      "hash": "0000edd762b5a63d9d304135fba527c708179fb1fcdf88ecc155abddd33c1d0b"
+    },
+    {
+      "index": 6,
+      "timestamp": "2025-11-21T21:17:25.306130",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.4,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000edd762b5a63d9d304135fba527c708179fb1fcdf88ecc155abddd33c1d0b",
+      "nonce": 167428,
+      "hash": "0000f698206a33082f5f139c09a1c3260a6df66814d2778ab1b4feecfc9d554d"
+    },
+    {
+      "index": 7,
+      "timestamp": "2025-11-21T21:17:38.274496",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.1,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000f698206a33082f5f139c09a1c3260a6df66814d2778ab1b4feecfc9d554d",
+      "nonce": 6965,
+      "hash": "00003bfe905ebf8d3c31d2d15cd5e3f9bdb296268ad89190742041c00800c443"
+    },
+    {
+      "index": 8,
+      "timestamp": "2025-11-21T21:17:39.667692",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 1.3,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "00003bfe905ebf8d3c31d2d15cd5e3f9bdb296268ad89190742041c00800c443",
+      "nonce": 21084,
+      "hash": "0000a82344d4e3d3fb16c22fc942d3bd8733173477a44f88a16a20c7ea8ca781"
+    },
+    {
+      "index": 9,
+      "timestamp": "2025-11-21T21:17:41.385787",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.1,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000a82344d4e3d3fb16c22fc942d3bd8733173477a44f88a16a20c7ea8ca781",
+      "nonce": 39130,
+      "hash": "0000b7ba10b431746489bd995c2b1dc3e3f64ac52419f67f2f4bb20842d782e0"
+    },
+    {
+      "index": 10,
+      "timestamp": "2025-11-21T21:19:15.882826",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.1,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000b7ba10b431746489bd995c2b1dc3e3f64ac52419f67f2f4bb20842d782e0",
+      "nonce": 16893,
+      "hash": "00002f9b65afcd7e7af9d7d407becfa0c3a4ee40c9f91a61b662dddfc3b1f1c1"
+    },
+    {
+      "index": 11,
+      "timestamp": "2025-11-21T21:21:16.434698",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.9,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "00002f9b65afcd7e7af9d7d407becfa0c3a4ee40c9f91a61b662dddfc3b1f1c1",
+      "nonce": 45007,
+      "hash": "0000d8adc44a80e13c4cb4ea7fad061b97d87f34cc2ce7879797339e714f78c2"
+    },
+    {
+      "index": 12,
+      "timestamp": "2025-11-21T21:21:18.610325",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.7,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000d8adc44a80e13c4cb4ea7fad061b97d87f34cc2ce7879797339e714f78c2",
+      "nonce": 58370,
+      "hash": "0000f54fff51a59de787bf98fd7e2ea223dc002b5226e772319a68558aa38bb3"
+    },
+    {
+      "index": 13,
+      "timestamp": "2025-11-21T21:21:19.874794",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.6,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000f54fff51a59de787bf98fd7e2ea223dc002b5226e772319a68558aa38bb3",
+      "nonce": 30511,
+      "hash": "00004a777f59cffdd7d8c8d97de67cccbdddbd5030e5efa59ef8b4aba8bac782"
+    },
+    {
+      "index": 14,
+      "timestamp": "2025-11-21T21:21:20.882819",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.8,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "00004a777f59cffdd7d8c8d97de67cccbdddbd5030e5efa59ef8b4aba8bac782",
+      "nonce": 140831,
+      "hash": "0000ff02e11e4e475c3ef7cb5d3ae8dae3aa2788c0465d75f539908b07f4c241"
+    },
+    {
+      "index": 15,
+      "timestamp": "2025-11-21T21:21:22.746621",
+      "transactions": [
+        {
+          "sender": "SYSTEM",
+          "receiver": "X0EO",
+          "amount": 0.6,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "0000ff02e11e4e475c3ef7cb5d3ae8dae3aa2788c0465d75f539908b07f4c241",
+      "nonce": 29115,
+      "hash": "00006f66080ac29b8021ad30ebc54977f66c49b18180f65bca1e0876921aa3a4"
+    },
+    {
+      "index": 16,
+      "timestamp": "2025-11-21T21:25:44.856388",
+      "transactions": [
+        {
+          "sender": "GBXE",
+          "receiver": "X0EO",
+          "amount": 1.5,
+          "signature": "eabba14e135910af34bbbd7a5019c04e022704a3aa8910be2e37ff789ca233c2a7fe3b5b839ef0dd1cc972764b73e3f494ac133e0117440735dfb8bad606660f",
+          "zk_proof": null,
+          "timestamp": "2025-11-21T21:25:37.404Z"
+        },
+        {
+          "sender": "SYSTEM",
+          "receiver": "GBXE",
+          "amount": 0.6,
+          "signature": null,
+          "zk_proof": null,
+          "timestamp": null
+        }
+      ],
+      "previous_hash": "00006f66080ac29b8021ad30ebc54977f66c49b18180f65bca1e0876921aa3a4",
+      "nonce": 112712,
+      "hash": "000078214dfdeba278b7a9e299f61ac5a706f76aa7ca4dbe3ec8c08f59b2e991"
+    }
+  ],
+  "pending_transactions": [],
+  "dev_users": {
+    "GBXE": "cody",
+    "X0EO": "ezzy",
+    "L305": "alice",
+    "4VSV": "bob",
+    "NRAH": "charlie",
+    "WUYJ": "diana",
+    "RTW7": "eve",
+    "KYGG": "frank"
+  },
+  "last_saved": "2025-11-21T21:25:46.066501"
+}

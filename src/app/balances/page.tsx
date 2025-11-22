@@ -33,7 +33,31 @@ export default function BalancesPage() {
 
   useEffect(() => {
     loadAllBalances();
+    
+    // Auto-refresh balances every 3 seconds
+    const interval = setInterval(() => {
+      loadAllBalances();
+    }, 3000);
+    
+    return () => clearInterval(interval);
   }, []);
+
+  // Auto-refresh current balance if address is set
+  useEffect(() => {
+    if (!address.trim()) return;
+    
+    const balanceInterval = setInterval(async () => {
+      try {
+        const balanceResponse = await getBalance(address.trim());
+        setBalanceData(balanceResponse);
+      } catch (err) {
+        // Silently fail on auto-refresh
+        console.error("Auto-refresh balance failed:", err);
+      }
+    }, 3000);
+    
+    return () => clearInterval(balanceInterval);
+  }, [address]);
 
   async function handleFetchBalance() {
     if (!address.trim()) {

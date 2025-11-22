@@ -3,6 +3,7 @@ Core blockchain implementation with Block and Blockchain classes.
 """
 import hashlib
 import json
+import os
 import random
 import string
 from datetime import datetime
@@ -48,12 +49,27 @@ class Block:
 class Blockchain:
     """Main blockchain class managing the chain and transactions."""
     
-    def __init__(self):
+    def __init__(self, data_dir: str = "data"):
         self.chain: List[Block] = []
         self.pending_transactions: List[Transaction] = []
         self.dev_users: Dict[str, str] = {}  # address -> name mapping
-        self.create_genesis_block()
-        self._initialize_dev_users()
+        self.public_keys: Dict[str, str] = {}  # username -> public_key_hex mapping
+        self.data_dir = data_dir
+        self.data_file = os.path.join(data_dir, "blockchain.json")
+        self.keys_dir = os.path.join(data_dir, "keys")
+        
+        # Create data directory if it doesn't exist
+        os.makedirs(data_dir, exist_ok=True)
+        os.makedirs(self.keys_dir, exist_ok=True)
+        
+        # Load public keys if they exist
+        self._load_public_keys()
+        
+        # Try to load existing chain, otherwise create genesis block
+        if not self.load_from_file():
+            self.create_genesis_block()
+            self._initialize_dev_users()
+            self.save_to_file()
     
     def _initialize_dev_users(self):
         """Initialize dev user accounts with 4-digit alphanumeric addresses."""
@@ -66,6 +82,23 @@ class Blockchain:
         """Generate a 4-digit alphanumeric address."""
         chars = string.ascii_uppercase + string.digits
         return ''.join(random.choice(chars) for _ in range(4))
+    
+    def _load_public_keys(self):
+        """Load public keys from files in the keys directory."""
+        from .crypto import load_public_key_from_file
+        
+        for username in ["cody", "ezzy"]:
+            key_file = os.path.join(self.keys_dir, f"{username}_public.pem")
+            if os.path.exists(key_file):
+                try:
+                    public_key = load_public_key_from_file(key_file)
+                    self.public_keys[username] = public_key
+                except Exception as e:
+                    print(f"Warning: Could not load public key for {username}: {e}")
+    
+    def register_public_key(self, username: str, public_key_hex: str):
+        """Register a public key for a user."""
+        self.public_keys[username] = public_key_hex
     
     def get_dev_users(self) -> Dict[str, str]:
         """Get all dev user accounts."""
@@ -105,8 +138,57 @@ class Blockchain:
         return block
     
     def add_transaction(self, transaction: Transaction):
-        """Add a transaction to the pending transactions pool."""
+        """
+        Add a transaction to the pending transactions pool.
+        Verifies signature if provided.
+        """
+        # Verify signature if present
+        if transaction.signature:
+            from .crypto import verify_transaction_signature
+            
+            # Check if sender has a registered public key
+            sender_username = None
+            for addr, name in self.dev_users.items():
+                if addr == transaction.sender or name == transaction.sender:
+                    sender_username = name
+                    break
+            
+            if sender_username and sender_username in self.public_keys:
+                public_key = self.public_keys[sender_username]
+                timestamp = transaction.timestamp or datetime.utcnow().isoformat()
+                
+                is_valid = verify_transaction_signature(
+                    transaction.sender,
+                    transaction.receiver,
+                    transaction.amount,
+                    transaction.signature,
+                    public_key,
+                    timestamp
+                )
+                
+                if not is_valid:
+                    # Add debug info
+                    print(f"Signature verification failed for {sender_username}")
+                    print(f"  Sender: {transaction.sender}, Receiver: {transaction.receiver}")
+                    print(f"  Amount: {transaction.amount}, Timestamp: {timestamp}")
+                    print(f"  Signature: {transaction.signature[:32]}...")
+                    raise ValueError("Invalid transaction signature")
+            else:
+                # Signature provided but no public key registered - allow but warn
+                print(f"Warning: Signature provided for {transaction.sender} but no public key registered")
+        
+        # Verify ZK proof if present
+        if transaction.zk_proof:
+            try:
+                from .zk_proof import verify_zk_proof
+                if not verify_zk_proof(transaction.zk_proof, transaction.sender, transaction.receiver, transaction.amount):
+                    raise ValueError("Invalid zero-knowledge proof")
+            except ImportError:
+                # zk_proof module not available yet
+                pass
+        
         self.pending_transactions.append(transaction)
+        self.save_to_file()  # Auto-save after adding transaction
     
     def _calculate_mining_reward(self) -> float:
         """
@@ -159,6 +241,7 @@ class Blockchain:
         mined_block = self.mine_block(new_block)
         self.chain.append(mined_block)
         self.pending_transactions = []
+        self.save_to_file()  # Auto-save after mining block
         return mined_block
     
     def compute_balance(self, address: str) -> float:
@@ -194,4 +277,72 @@ class Blockchain:
                 return False
         
         return True
+    
+    def save_to_file(self) -> bool:
+        """
+        Save the blockchain state to a JSON file.
+        Returns True if successful, False otherwise.
+        """
+        try:
+            data = {
+                "chain": [block.to_dict() for block in self.chain],
+                "pending_transactions": [tx.model_dump() for tx in self.pending_transactions],
+                "dev_users": self.dev_users,
+                "last_saved": datetime.utcnow().isoformat()
+            }
+            
+            with open(self.data_file, 'w') as f:
+                json.dump(data, f, indent=2)
+            
+            return True
+        except Exception as e:
+            print(f"Error saving blockchain to file: {e}")
+            return False
+    
+    def load_from_file(self) -> bool:
+        """
+        Load the blockchain state from a JSON file.
+        Returns True if successful, False if file doesn't exist or error occurred.
+        """
+        if not os.path.exists(self.data_file):
+            return False
+        
+        try:
+            with open(self.data_file, 'r') as f:
+                data = json.load(f)
+            
+            # Load chain
+            self.chain = []
+            for block_data in data.get("chain", []):
+                transactions = [
+                    Transaction(**tx_data) 
+                    for tx_data in block_data.get("transactions", [])
+                ]
+                block = Block(
+                    index=block_data["index"],
+                    timestamp=block_data["timestamp"],
+                    transactions=transactions,
+                    previous_hash=block_data["previous_hash"],
+                    nonce=block_data.get("nonce", 0)
+                )
+                block.hash = block_data["hash"]  # Restore computed hash
+                self.chain.append(block)
+            
+            # Load pending transactions
+            self.pending_transactions = [
+                Transaction(**tx_data)
+                for tx_data in data.get("pending_transactions", [])
+            ]
+            
+            # Load dev users
+            self.dev_users = data.get("dev_users", {})
+            
+            # Re-initialize dev users if empty (backward compatibility)
+            if not self.dev_users:
+                self._initialize_dev_users()
+            
+            return True
+        except Exception as e:
+            print(f"Error loading blockchain from file: {e}")
+            return False
 
